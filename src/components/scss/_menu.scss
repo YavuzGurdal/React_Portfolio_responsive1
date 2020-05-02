@@ -1,0 +1,156 @@
+// Menu Button
+.menu-btn {
+  position: absolute;
+  z-index: 3;
+  right: 35px;
+  top: 35px;
+  cursor: pointer;
+  @include easeOut;
+
+  .btn-line {
+    width: 28px;
+    height: 3px;
+    margin: 0 0 5px 0;
+    // background: #fff; color icin fonksiyon yazdim
+    background: set-text-color($primary-color);
+    @include easeOut;
+  }
+
+  // Rotate Into x with Menu Lines
+  &.close {
+    transform: rotate(180deg);
+
+    .btn-line {
+      // line 1 - Rotate
+      &:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      // line 2 - Hide
+      &:nth-child(2) {
+        opacity: 0;
+      }
+
+      // line 3 - Rotate
+      &:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+      }
+    }
+  }
+}
+
+// Menu Overlay
+// menu tusuyla alakali islemler
+.menu {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  opacity: 0.96; // ******** bunu kaldiradabilirim. menu kismi acilincaki kisim icin **********
+  visibility: hidden; // ilk basta gorunmuyor. dugmeye basinca show class'i devreye giriyor ve gorunuyor
+
+  &.show {
+    visibility: visible;
+  }
+
+  // sag ve sol taraf beraber
+  &-branding,
+  &-nav {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    float: left;
+    width: 50%;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  // sag taraf
+  &-nav {
+    margin: 0;
+    padding: 0;
+    background: darken($primary-color, 15);
+    list-style: none; // liste elemanlarinin solundaki noktayi kaldirmak icin
+    transform: translate3d(
+      0,
+      -100%,
+      0
+    ); // -100% yaptigimiz icin menu kismi yukaridan asagiya ogru geldi
+    @include easeOut;
+
+    &.show {
+      // slide in from top
+      // menu kisminin ustten gelmesi icin
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  // Branding Side
+  // ekranin sol kismi
+  &-branding {
+    background: lighten($primary-color, 11);
+    //background: darken($secondary-color, 40);
+    transform: translate3d(0, 100%, 0);
+    @include easeOut;
+
+    &.show {
+      // slide in from bottom
+      // menu kisminin ustten gelmesi icin
+      transform: translate3d(0, 0, 0);
+    }
+
+    .portrait {
+      width: 330px;
+      height: 330px;
+      background: url("/images/portrait.jpeg");
+      background-size: cover; // fotoyu ortalamasi icin yazdim
+      border-radius: 50%;
+      border: solid 3px $secondary-color;
+    }
+  }
+
+  .nav-item {
+    transform: translate3d(600px, 0, 0);
+    @include easeOut;
+
+    &.show {
+      // slide in from right
+      // menu icindekilerin sagdan gelmesi icin
+      transform: translate3d(0, 0, 0);
+    }
+
+    // &.current > a {
+    //   // class'i current olan elemanin rengini belirledim
+    //   color: $secondary-color;
+    // }
+  }
+
+  // menu deki elemanlar icin duzenleme
+  .nav-link {
+    display: block;
+    position: relative;
+    font-size: 30px;
+    text-transform: uppercase;
+    padding: 1rem 0;
+    font-weight: 300;
+    // color: #fff; color icin fonksiyon yazdim
+    color: set-text-color($primary-color);
+    text-decoration: none;
+    @include easeOut;
+
+    &:hover {
+      // menunun diger elemanlarinin ustune gidince olusacak renk
+      color: $secondary-color;
+      transform: scale(1.3);
+    }
+  }
+}
+
+// Delay each nav item slide by 0.15s
+// navdaki itemlerin 0.15 saniye digerinden daha gec gelmesi icin
+@for $x from 1 through 4 {
+  .nav-item:nth-child(#{$x}) {
+    transition-delay: $x * 0.15s;
+    // arada ne kadar fark olacagini burdan belirliyoruz
+  }
+}

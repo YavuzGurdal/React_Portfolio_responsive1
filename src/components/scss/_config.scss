@@ -1,0 +1,69 @@
+$primary-color: #444;
+$secondary-color: #3498db;
+$third-color: #eece1a;
+
+$show-home-image: true; // arka plan resminin gosterilmesi icin
+$home-image: url("/images/background.jpg");
+$background-opacity: 0.85; // opacity degeri icin
+
+@mixin easeOut {
+  // mixin bu sekilde tanimlaniyor. sonra bunu istedigimiz yerde kullaniyoruz
+  transition: all 0.5s ease-out;
+  // hangisi icin, sure, animation
+}
+
+@mixin background {
+  @if $show-home-image {
+    &#bg-img {
+      background-image: $home-image;
+      background-position: center;
+      background-size: cover;
+
+      .overlay {
+        //content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -5;
+        // z-index'i bu kismin yazilarin altinda kalsin diye verdim
+        background: rgba($primary-color, $background-opacity);
+      }
+    }
+  }
+}
+
+//set text color
+// text rengi icin fonksiyon
+@function set-text-color($color) {
+  @if (lightness($color) > 40) {
+    @return #000;
+  } @else {
+    @return #fff;
+  }
+}
+
+// Media Query Mixins
+// ekran buyukluklerine gore mixin yapiyorum
+@mixin mediaSm {
+  @media screen and (max-width: 500px) {
+    @content;
+  }
+}
+
+@mixin mediaMd {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+@mixin mediaLg {
+  @media screen and (min-width: 769px) and (max-width: 1170px) {
+    @content;
+  }
+}
+@mixin mediaXl {
+  @media screen and (min-width: 1171px) {
+    @content;
+  }
+}
