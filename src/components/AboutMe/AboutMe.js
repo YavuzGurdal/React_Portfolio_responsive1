@@ -40,10 +40,7 @@ function AboutMe() {
                         <div className="bio">
                             <h3 className="text-secondary">BIO</h3>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium
-                                cumque, maiores impedit ad vero, vitae aliquam dolores voluptatem
-                                natus porro sed dolor facilis suscipit eum aliquid quia illo,
-                                dolorem repudiandae!
+                                I am a React web developer.
                         </p>
                         </div>
                     </Slide>
